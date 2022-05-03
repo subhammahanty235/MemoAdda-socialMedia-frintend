@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Post from './components/Post/Post';
+import './App.css'
+import memories from './Images/memories.jpg'
 
-function App() {
+import { useEffect } from 'react';
+
+import Poststate from './context/Poststate';
+
+const App = () => {
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <>
+      <Poststate>
 
+        <div className="container">
+          <nav id='navbar' className="nav align-items-center justify-content-center ">
+            <h3>Memories</h3>
+          </nav>
+          <Post />
+        </div>
+      </Poststate>
+    </>
+  )
+}
 export default App;
