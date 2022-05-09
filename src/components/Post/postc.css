@@ -17,6 +17,7 @@
     border-radius: 15px;
     height: 100%;
     position: relative;
+    
 }
 .overlay {
     position: absolute;
@@ -46,3 +47,15 @@
     display: flex;
     justify-content: space-between;
   }
+/* effects on card */
+.postcard{
+  transition: all 1s !important;
+}
+.postcard:hover{
+  transform: translateY(-3%);
+  border: 1px solid yellow;
+  -webkit-box-shadow:  6px 6px 16px -3px rgba(0,0,0,0.75);
+-moz-box-shadow:  6px 6px 16px -3px rgba(0,0,0,0.75);
+box-shadow:  6px 6px 16px -3px rgba(0,0,0,0.75);
+
+}

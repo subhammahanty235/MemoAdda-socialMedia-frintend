@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import PostC from "./PostC";
-
+import { useNavigate } from "react-router-dom";
 import FileBase from 'react-file-base64'
 
 //for posts
@@ -8,16 +8,33 @@ import { Grid, CircularProgress } from '@mui/material';
 import { useContext } from "react";
 import postContext from "../../context/postContext";
 
-const Post = ({ setCurrentId }) => {
+const Post = (props) => {
     const context = useContext(postContext)
+    const navigate = useNavigate()
     const {Posts,getPosts,Addpost } = context;
     console.log(Posts)
    
     const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', selectedFile: '' })
+    const checkSigned = () => {
+        if (!localStorage.getItem('memoapk_api_auth_token')) {
+           
+            navigate('/login')
+            
+        }
+        else {
+            
+        }
+    }
+    // useEffect(() => {
+    //     getPosts()
+        
+    //     console.log("liked")
+    //    },[Posts.likecount] )
     useEffect(() => {
      getPosts()
-     console.log("started")
-    }, [])
+     checkSigned()
+     
+    },[] )
     
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -50,7 +67,7 @@ const Post = ({ setCurrentId }) => {
                             <form onSubmit={handleSubmit}>
                                 <div class="mb-3">
                                     <label for="inputcreator" class="form-label">Creator</label>
-                                    <input type="text" class="form-control" id="inputcreator" name="creator" value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} />
+                                    <input type="text" class="form-control" id="inputcreator" name="creator" value={props.userName}  />
 
                                 </div>
                                 <div class="mb-3">
@@ -76,12 +93,12 @@ const Post = ({ setCurrentId }) => {
                     </div>
                 </div>
             </div>
-            <h1>Posts</h1>
+            <h1 className="text-center">POSTS</h1>
             {Posts.length===0 ? <CircularProgress /> : (
             <Grid  container alignItems="stretch" spacing={3}>
                 {Posts.map((post) => (
                     <Grid key={post._id} item xs={12} sm={6} md={4}>
-                        <PostC post={post} setCurrentId={setCurrentId} />
+                        <PostC post={post} fromadmin={false} />
                     </Grid>
                 ))}
             </Grid>
